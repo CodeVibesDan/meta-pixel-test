@@ -472,24 +472,36 @@ document.getElementById("contactForm")
     e.preventDefault();
     let name = document.getElementById("name").value;
     let phone = document.getElementById("phone").value;
-    // Отправка лида в Google Sheets
+
+    // 1. Генерируем ОДИН event_id на эту заявку (общий для пикселя и CAPI)
+    let eventId = 'lead.' + Date.now() + '.' + Math.random().toString(36).substring(2);
+
+    // 2. Отправка лида в Google Sheets + передаём event_id и URL для CAPI
     fetch("https://script.google.com/macros/s/AKfycbwNeN-LtJ5sDYmrz6T-mCxy7KB7EzBFCKsHkrPbAA9fRloQ-xa3Os3ff49gvNNbrrau/exec", {
         method: "POST",
         body: JSON.stringify({
             name: name,
-            contact: phone
+            contact: phone,
+            event_id: eventId,                        // ← тот же id пойдёт в CAPI
+            event_source_url: window.location.href    // ← URL страницы, нужен для CAPI
         })
     });
-    // Отправка события Lead в Meta Pixel
+
+    // 3. Отправка события Lead в пиксель — теперь С eventID (для дедупликации)
     fbq('track', 'Lead', {
         content_name: 'Website Contact Form'
+    }, {
+        eventID: eventId                              // ← ключевое: тот же id, что в CAPI
     });
+
     // Сообщение пользователю
     document.getElementById("success").style.display = "block";
     // Очистка формы
     document.getElementById("contactForm").reset();
-    console.log("Lead sent", name, phone);
+    console.log("Lead sent", name, phone, "eventId:", eventId);
 });
+</script>
+ 
 </script>
 </body>
 </html>
