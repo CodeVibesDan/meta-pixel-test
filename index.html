@@ -477,7 +477,7 @@ document.getElementById("contactForm")
     let eventId = 'lead.' + Date.now() + '.' + Math.random().toString(36).substring(2);
 
     // 2. Отправка лида в Google Sheets + передаём event_id и URL для CAPI
-    fetch("https://script.google.com/macros/s/AKfycbyJyNT94yov_s693B1MVIfczJxKRKjG8XipmAVAW7z0ccJoZgdmO5EyjULhpR-MPOvi/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbwNeN-LtJ5sDYmrz6T-mCxy7KB7EzBFCKsHkrPbAA9fRloQ-xa3Os3ff49gvNNbrrau/exec", {
         method: "POST",
         body: JSON.stringify({
             name: name,
