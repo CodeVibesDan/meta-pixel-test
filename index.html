@@ -479,6 +479,8 @@ document.getElementById("contactForm")
     // 2. Отправка лида в Google Sheets + передаём event_id и URL для CAPI
     fetch("https://script.google.com/macros/s/AKfycbwNeN-LtJ5sDYmrz6T-mCxy7KB7EzBFCKsHkrPbAA9fRloQ-xa3Os3ff49gvNNbrrau/exec", {
         method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
             name: name,
             contact: phone,
