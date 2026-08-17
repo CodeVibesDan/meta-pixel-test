@@ -466,59 +466,30 @@ Thanks. I'll contact you soon.
   })();
 </script>
  
- <script>
-
+<script>
 document.getElementById("contactForm")
 .addEventListener("submit", function(e){
-
-e.preventDefault();
-
-
-let name = document.getElementById("name").value;
-let phone = document.getElementById("phone").value;
-
-
-fetch("https://script.google.com/macros/s/AKfycbwNeN-LtJ5sDYmrz6T-mCxy7KB7EzBFCKsHkrPbAA9fRloQ-xa3Os3ff49gvNNbrrau/exec", {
-
-method: "POST",
-
-body: JSON.stringify({
-name: name,
-contact: phone
-})
-
-})
-.then(() => {
-
-
-fbq('track', 'Lead', {
-content_name: 'Website Contact Form'
+    e.preventDefault();
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    // Отправка лида в Google Sheets
+    fetch("https://script.google.com/macros/s/AKfycbwNeN-LtJ5sDYmrz6T-mCxy7KB7EzBFCKsHkrPbAA9fRloQ-xa3Os3ff49gvNNbrrau/exec", {
+        method: "POST",
+        body: JSON.stringify({
+            name: name,
+            contact: phone
+        })
+    });
+    // Отправка события Lead в Meta Pixel
+    fbq('track', 'Lead', {
+        content_name: 'Website Contact Form'
+    });
+    // Сообщение пользователю
+    document.getElementById("success").style.display = "block";
+    // Очистка формы
+    document.getElementById("contactForm").reset();
+    console.log("Lead sent", name, phone);
 });
-
-
-document.getElementById("success").style.display="block";
-
-
-document.getElementById("contactForm").reset();
-
-
-})
-.catch((error)=>{
-
-console.error(error);
-
-});
-
-});
-
-// показываем сообщение
-document.getElementById("success").style.display="block";
-
- // очищаем форму
-this.reset();
-console.log("Lead sent", name, phone);
-});
-
 </script>
 </body>
 </html>
