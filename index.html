@@ -258,7 +258,7 @@ src="https://www.facebook.com/tr?id=1674103377014222&ev=PageView&noscript=1"
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn cta-sm" href="https://calendly.com/REPLACE-ME/intro">Book an intro call</a>
+    <a class="btn cta-sm" href="#lead-form">Get started</a>
   </div>
 </header>
 
@@ -389,13 +389,62 @@ src="https://www.facebook.com/tr?id=1674103377014222&ev=PageView&noscript=1"
   </div>
 </section>
 
+<section id="lead-form">
+<div class="wrap">
+
+<h2 class="sec-title">
+Let's discuss your growth.
+</h2>
+
+<p class="sec-sub">
+Leave your details and I'll get back to you.
+</p>
+
+
+<form id="contactForm" style="margin-top:30px; max-width:500px;">
+
+<input 
+type="text" 
+id="name"
+placeholder="Your name"
+required
+style="width:100%;padding:14px;margin-bottom:12px;border:1px solid #CBD1C8;border-radius:5px;font-size:16px;"
+>
+
+
+<input 
+type="tel" 
+id="phone"
+placeholder="Phone / Telegram"
+required
+style="width:100%;padding:14px;margin-bottom:12px;border:1px solid #CBD1C8;border-radius:5px;font-size:16px;"
+>
+
+
+<button 
+class="btn"
+type="submit">
+Send request
+</button>
+
+
+</form>
+
+<p id="success" style="display:none;margin-top:20px;color:#1E7A52;">
+Thanks. I'll contact you soon.
+</p>
+
+
+</div>
+</section>
+ 
 <!-- FOOTER CTA -->
 <div class="foot">
   <div class="wrap" style="padding:74px 40px;">
     <h2>Let's turn your ad account<br>into a profit center.</h2>
     <div class="sub">A 20-minute intro call. I'll tell you straight if I can move the number.</div>
     <div class="fcta">
-      <a class="btn" href="https://calendly.com/REPLACE-ME/intro">Book an intro call</a>
+      <a class="btn" href="#lead-form">Get started</a>
       <a class="ghost on-dark" href="mailto:hello@danilabuilds.co" onclick="fbq('track', 'Contact');">Send me your account &rarr;</a>
     </div>
     <div class="contact">
@@ -415,6 +464,32 @@ src="https://www.facebook.com/tr?id=1674103377014222&ev=PageView&noscript=1"
     }, {threshold:0.12});
     els.forEach(function(el){ io.observe(el); });
   })();
+</script>
+ 
+ <script>
+
+document.getElementById("contactForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+
+let name = document.getElementById("name").value;
+let phone = document.getElementById("phone").value;
+
+// отправляем событие Meta Pixel
+fbq('track', 'Lead', {
+content_name: 'Website Contact Form'
+});
+
+// показываем сообщение
+document.getElementById("success").style.display="block";
+
+ // очищаем форму
+this.reset();
+console.log("Lead sent", name, phone);
+});
+
 </script>
 </body>
 </html>
